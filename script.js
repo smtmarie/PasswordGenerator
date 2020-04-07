@@ -1,71 +1,103 @@
 // Assignment Code
-var generateBtn = document.querySelector("#generate");
 
-// Write password to the #password input
-function writePassword() {
+var generateBtn = document.getElementById("generate");
 
-  var password = generatePassword();
+var passwordBox = document.getElementById("password");
 
-  var Char = [];
+var alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
-  //Array of special characters for password input
-  var specialChar = [" ~ ! @ # $ % ^ & * + ? "].split("")
+var alphaNum = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789'.split('');
 
-  //Array of numeric characters for password input
-  var numericChar = [" 0 1 2 3 4 5 6 7 8 9 "].split("")
+var alphaSpec = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*'.split('');
 
-  //Array of lowercase characters for password input
-  var lowerCaseChar = [" a b c d e f g h i j k l m n o p q r s t u v w x y z "].split("")
-
-  //Array of uppercase characters for password input
-  var upperCaseChar = [" A B C D E F G H I J K L M N O P Q R S T U V W X Y Z "].split("")
-}
-
-function userPasswordLength() {
-
-  var passwordLength = parseInt(prompt("Please choose the amount of characters for your password. Password must be at least 8 characters long, not exceeding 128."));
-
-  // if (isNAN(passwordLength) === true) {
-
-  // }
-  alert("Answer must be provided as a number");
-
-
-  if (passwordLength < 8) {
-    alert("Password must be at least 8 characters");
-
-  } else if (passwordLength > 128) {
-    alert("Password must not exceed 128 characters");
-
-
-  } else {
-
-    var specialCase = confirm("Do you want special characters?");
-    var numericCase = confirm("Do you want numeric characters?");
-    var lowerCase = confirm("Do you want lower case characters?");
-    var upperCase = confirm("Do you want upper case characters?");
-
-  }
-
-}
+var alphaNumSpec = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789!@#$%^&*()-_=+'.split('');
 
 var passwordText = document.querySelector("#password");
 
-passwordText.value = password;
-
-//Use prompts to select password choices
+var numResults = [];
 
 
-function getRandom(array) {
 
-  var randIndex = Math.floor(Math.random() * array.length);
-  var randElement = arrary[randIndex];
+function generatePassword() {
 
-  return randElement;
+  var passwordLength = prompt("How many characters do you want your password to be? (Enter a number between 8-128)");
 
+  if (passwordLength >= 8 && passwordLength <= 128) {
+
+    numResults = [];
+
+    var specialChar = confirm("Do you want special characters in your password?");
+
+    var numericChar = confirm("Do you want numbers in your password?");
+
+    if (specialChar && numericChar) {
+
+      for (i = 0; i < passwordLength; i++) {
+
+        var randomNumber = Math.floor(Math.random() * alphaNumSpec.length);
+
+        var hold = alphaNumSpec[randomNumber];
+
+        numResults.push(hold);
+
+        passwordThisIs = numResults.join('');
+
+      }
+    } else if (specialChar !== true && numericChar) {
+
+      for (i = 0; i < passwordLength; i++) {
+
+        var randomNumber = Math.floor(Math.random() * alphaNum.length);
+
+        var hold = alphaNum[randomNumber];
+
+        numResults.push(hold);
+
+        passwordThisIs = numresults.join('');
+
+      }
+    } else if (specialChar && numericChar !== true) {
+
+      for (i = 0; i < passwordLength; i++) {
+
+        var randomNumber = Math.floor(Math.random() * alphaSpec.length);
+
+        var hold = alphaSpec[randomNumber];
+
+        numResults.push(hold);
+
+        passwordThisIs = numResults.join('');
+
+      }
+    }
+
+    else {
+
+      for (i = 0; i < passwordLength; i++) {
+
+        var randomNumber = Math.floor(Math.random() * alphabet.length);
+
+        var hold = alphabet[randomNumber];
+
+        numResults.push(hold);
+
+        passwordThisIs = numResults.join('');
+
+      }
+    }
+
+    passwordText.value = passwordThisIs;
+
+  } else {
+
+    alert("Please enter a number between 8-128")
+
+  }
 }
 
 
 
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+generateBtn.addEventListener("click", generatePassword);
+
+
+
